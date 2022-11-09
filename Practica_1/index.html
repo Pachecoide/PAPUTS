@@ -91,17 +91,19 @@
         <form>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" id="etitle">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <textarea class="form-control" id="ebody"></textarea>
+            <input type="hidden" id="eid" value="0">
+            <input type="hidden" id="euserid" value="0">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-trash m-2"></i>Cancel</button>
-        <button type="button" class="btn btn-success"><i class="bi bi-save m-2"></i>Save changes</button>
+        <button type="button" class="btn btn-success" onclick="guardarPost()"><i class="bi bi-save m-2"></i>Save changes</button>
       </div>
     </div>
   </div>
@@ -113,17 +115,17 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-pencil-square"></i> Editar</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-pencil-square"></i> Eliminar|</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <h2>¿Desea eliminar este post?</h2>
-        </form>
+        <input type="hidden" id="deleteid">        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-save m-2"></i>Cancel</button>
-        <button type="button" class="btn btn-success"><i class="bi bi-trash m-2"></i>
+        <button type="button" class="btn btn-success" onclick="deletepost()"><i class="bi bi-trash m-2"></i>
           Delete</button>
       </div>
     </div>
