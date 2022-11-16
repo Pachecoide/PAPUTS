@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Roboto Mono', monospace;
+}
+#bp{
+    color: white;
+}
+#offcanvasNavbar{
+    background: #313436;
+}
+#hu{
+    margin: 10px;
+}
