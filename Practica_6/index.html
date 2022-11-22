@@ -36,7 +36,7 @@
                   <a class="nav-link" id="bp" href="#" data-bs-toggle="modal" data-bs-target="#modLog">Login</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="bp" href="#" data-bs-toggle="modal" data-bs-target="#modCA">Create Account</a>
+                  <a class="nav-link" id="bp" href="#" data-bs-toggle="modal" data-bs-target="#crearModal">Create Account</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" id="bp" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -112,7 +112,7 @@
 <!-- START MODAL CA -->
 
 
-<div class="modal fade" id="modCA" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -123,17 +123,17 @@
           <form>
             <div class="mb-3">
               <label for="recipient-name" class="col-form-label">User/email:</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <input type="text" class="form-control" id="crearemail" required>
             </div>
             <div class="mb-3">
               <label for="message-text" class="col-form-label">Password:</label>
-              <textarea class="form-control" id="message-text"></textarea>
+              <textarea class="form-control" id="crearcontra" required></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg m-2"></i>Cancel</button>
-          <button type="button" class="btn btn-outline-success"><i class="bi bi-power m-2"></i>Create Account</button>
+          <button type="button" class="btn btn-outline-success" id="btncrear"><i class="bi bi-power m-2" ></i>Create Account</button>
         </div>
       </div>
     </div>
@@ -143,6 +143,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="kode.js"></script>
+    <script src="kode.js" type="module"></script>
 </body>
 </html>
