@@ -13,17 +13,24 @@ img{
     height: 200px;
     border-radius: 100%;
 }
-ul{
-    list-style: none;
-}
+    ul{
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        flex-flow: row wrap;
+        
+    }
+
 a{
     text-decoration: none;
     color: #fff;
     display: block;
     width: 200px;
+    height: 80px;
     padding: 20px;
     margin: 20px auto;
     border: 2px solid #fff;
+    margin: 10px;
 }
 a:hover{
     box-shadow: 0 0 20px rgb(122, 251, 247);
