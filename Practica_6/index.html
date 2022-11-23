@@ -33,10 +33,13 @@
                   <a class="nav-link active" id="bp" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="bp" href="#" data-bs-toggle="modal" data-bs-target="#modLog">Login</a>
+                  <a class="nav-link" id="iniciar" href="#" data-bs-toggle="modal" data-bs-target="#modLog">Login</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="bp" href="#" data-bs-toggle="modal" data-bs-target="#crearModal">Create Account</a>
+                  <a class="nav-link" id="crear" href="#" data-bs-toggle="modal" data-bs-target="#crearModal">Create Account</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="cerrar" href="#" data-bs-toggle="modal" data-bs-target="#">Sign out</a>
                 </li>
 
                 
@@ -72,7 +75,7 @@
     </div>
     <div class="card-body" >
       <h5 class="card-title" id="hu">Welcome</h5>
-      <p class="card-text"><h2>Fire Base</h2></p>
+      <p class="card-text" id="container">FireBase</p>
     </div>
     <div class="card-footer text-muted">
       Developed By @tiageorgina21 and @benitessantiagopablo
@@ -97,13 +100,14 @@
             </div>
             <div class="mb-3">
               <label for="message-text" class="col-form-label">Password:</label>
-              <textarea class="form-control" id="IPass"></textarea>
+              <input type="password" class="form-control" id="IPass" required>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg m-2"></i>Cancel</button>
           <button type="button" class="btn btn-outline-success" id="BtnI"><i class="bi bi-power m-2"></i>Login</button>
+          <button type="button" class="btn btn-outline-info" id="BtnCAG"><i class="bi bi-google m-2" ></i></i>Login with google</button>
         </div>
       </div>
     </div>
@@ -126,18 +130,18 @@
           <form>
             <div class="mb-3">
               <label for="recipient-name" class="col-form-label">User/email:</label>
-              <input type="text" class="form-control" id="crearemail" required>
+              <input type="email" class="form-control" id="crearemail" required>
             </div>
             <div class="mb-3">
               <label for="message-text" class="col-form-label">Password:</label>
-              <textarea class="form-control" id="crearcontra" required></textarea>
+              <input type="password" class="form-control" id="crearcontra" required>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg m-2"></i>Cancel</button>
           <button type="button" class="btn btn-outline-success" id="btncrear"><i class="bi bi-power m-2" ></i>Create Account</button>
-          <button type="button" class="btn btn-outline-danger" id="BtnG"><i class="bi bi-google m-2" ></i></i>Create Account with google</button>
+          <button type="button" class="btn btn-outline-info" id="BtnCAG"><i class="bi bi-google m-2" ></i></i>Create Account with google</button>
           
         </div>
       </div>

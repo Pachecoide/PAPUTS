@@ -5,6 +5,15 @@
 body{
     font-family: 'Roboto Mono', monospace;
 }
+#iniciar{
+    color: white;
+}
+#crear{
+    color: white;
+}
+#cerrar{
+    color: white;
+}
 #bp{
     color: white;
 }

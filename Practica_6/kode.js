@@ -1,12 +1,12 @@
 import {app} from './firebase.js'
 
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
 const auth = getAuth(app);
 
 const provider = new GoogleAuthProvider();
 
-const btnGoogle=document.querySelector("#BtnG");
+const btnGoogle=document.querySelector("#BtnCAG");
 btnGoogle.addEventListener('click', async()=>{
 
 });
@@ -23,14 +23,29 @@ try {
     Swal.fire({
         icon: 'success',
     title: 'Secces',
-    text: 'Is created your account',
+    text: 'You logged in',
+        
+    }) 
+    var myModalEl = document.getElementById ('modLog');
+        var modal=bootstrap.Modal.getInstance(myModalEl)
+        modal.hide();
+    const resII= await onAuthStateChanged (auth, (user)=>{
+        const container=document.querySelector("#container");
+        if(user){
+            container.innerHTML=`<h1>${user.email}</h1>`
+            document.querySelector("#iniciar").style.display="none";
+            document.querySelector("#crear").style.display="none";
+            const uid=user.uid;
+        }else{
+container.innerHTML=`<h1>Don´t have user</h1>`
+        }
 
           })
 } catch (error) {
     Swal.fire({
         icon: 'error',
-       
-        text: 'You don´s have here',
+       title: 'Ops...',
+        text: 'Check your email or password',
           })
 }
 
