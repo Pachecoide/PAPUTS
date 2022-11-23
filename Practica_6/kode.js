@@ -1,8 +1,40 @@
 import {app} from './firebase.js'
 
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
 const auth = getAuth(app);
+
+const provider = new GoogleAuthProvider();
+
+const btnGoogle=document.querySelector("#BtnG");
+btnGoogle.addEventListener('click', async()=>{
+
+});
+
+const btnIniciar=document.querySelector("#BtnI");
+btnIniciar.addEventListener('click', async(e)=>{
+e.preventDefault();
+const email=document.querySelector("#Iemail");
+const password=document.querySelector("#IPass");
+console.log(email.value,password.value);
+try {
+    const res=await signInWithEmailAndPassword(auth, email. value, password.value)
+    console.log(res);
+    Swal.fire({
+        icon: 'success',
+    title: 'Secces',
+    text: 'Is created your account',
+
+          })
+} catch (error) {
+    Swal.fire({
+        icon: 'error',
+       
+        text: 'You don´s have here',
+          })
+}
+
+});
 
 const btncrearcuenta=document.querySelector("#btncrear")
 
