@@ -1,6 +1,6 @@
 import {app} from './firebase.js'
 
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
 const auth = getAuth(app);
 
@@ -9,7 +9,42 @@ const provider = new GoogleAuthProvider();
 const btnGoogle=document.querySelector("#BtnCAG");
 btnGoogle.addEventListener('click', async()=>{
 
+    try {
+        const credencial=await signInWithPopup(auth, provider)
+        console.log(credencial)
+        Swal.fire({
+            icon: 'success',
+        title: 'Secces',
+        text: 'You logged in',
+    })
+    if(user){
+        container.innerHTML=`<h1>${user.email}</h1>`
+        Bbody.innerHTML=`
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link active" id="bp" aria-current="page" href="./index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="cerrar" href="#" data-bs-toggle="modal" data-bs-target="#">Sign out</a>
+            </li>
+          </ul>
+        `
+        document.querySelector("#iniciar").style.display="none";
+        document.querySelector("#crear").style.display="none";
+        const uid=user.uid;
+    }
+    } catch (error) {
+        console.log(error)
+        Swal.fire({
+            icon: 'error',
+           title: 'Ops...',
+            text: 'Don´t is possible login whit google in this moment',
+              })
+    }
+
 });
+
+
 
 const btnIniciar=document.querySelector("#BtnI");
 btnIniciar.addEventListener('click', async(e)=>{
@@ -25,14 +60,25 @@ try {
     title: 'Secces',
     text: 'You logged in',
         
-    }) 
+     })
     var myModalEl = document.getElementById ('modLog');
         var modal=bootstrap.Modal.getInstance(myModalEl)
         modal.hide();
     const resII= await onAuthStateChanged (auth, (user)=>{
         const container=document.querySelector("#container");
+        const Bbody=document.querySelector("#Bbody");
         if(user){
             container.innerHTML=`<h1>${user.email}</h1>`
+            Bbody.innerHTML=`
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" id="bp" aria-current="page" href="./index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="cerrar" href="#" data-bs-toggle="modal" data-bs-target="#">Sign out</a>
+                </li>
+              </ul>
+            `
             document.querySelector("#iniciar").style.display="none";
             document.querySelector("#crear").style.display="none";
             const uid=user.uid;
