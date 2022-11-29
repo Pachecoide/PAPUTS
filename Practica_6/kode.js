@@ -4,13 +4,21 @@ import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWith
 
 const auth = getAuth(app);
 
-const provider = new GoogleAuthProvider();
+const btnOut=document.querySelector("#cerrar");
+btnOut.addEventListener('click', async(e)=>{
+e.preventDefault();
+
+)};
+
+
 
 const btnGoogle=document.querySelector("#BtnCAG");
-btnGoogle.addEventListener('click', async()=>{
-
+btnGoogle.addEventListener('click', async(e)=>{
+e.preventDefault();
+  const provider = new GoogleAuthProvider();
     try {
         const credencial=await signInWithPopup(auth, provider)
+        user=credencial.user;
         console.log(credencial)
         Swal.fire({
             icon: 'success',
@@ -18,7 +26,7 @@ btnGoogle.addEventListener('click', async()=>{
         text: 'You logged in',
     })
     if(user){
-        container.innerHTML=`<h1>${user.email}</h1>`
+        container.innerHTML=`<h1>${user.auth.displayName}</h1>`
         Bbody.innerHTML=`
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
@@ -29,8 +37,6 @@ btnGoogle.addEventListener('click', async()=>{
             </li>
           </ul>
         `
-        document.querySelector("#iniciar").style.display="none";
-        document.querySelector("#crear").style.display="none";
         const uid=user.uid;
     }
     } catch (error) {
@@ -43,6 +49,7 @@ btnGoogle.addEventListener('click', async()=>{
     }
 
 });
+
 
 
 
