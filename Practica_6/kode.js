@@ -1,16 +1,28 @@
 import {app} from './firebase.js'
 
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getAuth,
+   createUserWithEmailAndPassword,
+   GoogleAuthProvider, signInWithEmailAndPassword,
+    onAuthStateChanged, signInWithPopup,
+     signOut 
+    } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
+let user=null;
 const auth = getAuth(app);
 
-const btnOut=document.querySelector("#cerrar");
-btnOut.addEventListener('click', async(e)=>{
-e.preventDefault();
+onAuthStateChanged(auth,(user)=>{
 
-)};
+  const container=document.querySelector("#container");
+  checarEstado(user);
+  if(user){
+    container.innerHTML=`<h2>Welcome  ${user.displayName}</h2>
+    <h3> ${user.email}</h3>`
+    const uid=user.uid;
+  }else{
+    container.innerHTML=`<h1>Invalid User</h1>`
+  }
 
-
+})
 
 const btnGoogle=document.querySelector("#BtnCAG");
 btnGoogle.addEventListener('click', async(e)=>{
@@ -19,26 +31,16 @@ e.preventDefault();
     try {
         const credencial=await signInWithPopup(auth, provider)
         user=credencial.user;
+        const modalInstance = bootstrap.Modal.getInstance(btnGoogle.closest('.modal'));
+        modalInstance.hide();
+        checarEstado(user);
         console.log(credencial)
         Swal.fire({
             icon: 'success',
         title: 'Secces',
         text: 'You logged in',
+        
     })
-    if(user){
-        container.innerHTML=`<h1>${user.auth.displayName}</h1>`
-        Bbody.innerHTML=`
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link active" id="bp" aria-current="page" href="./index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="cerrar" href="#" data-bs-toggle="modal" data-bs-target="#">Sign out</a>
-            </li>
-          </ul>
-        `
-        const uid=user.uid;
-    }
     } catch (error) {
         console.log(error)
         Swal.fire({
@@ -50,7 +52,32 @@ e.preventDefault();
 
 });
 
+const checarEstado=(user=null)=>{
+  console.log(user);
+  if(user==null){
+    document.querySelector("#iniciar").style.display="block";
+    document.querySelector("#crear").style.display="block";
+    document.querySelector("#cerrar").style.display="none";
+  }
+  else{
+    document.querySelector("#iniciar").style.display="none";
+    document.querySelector("#crear").style.display="none";
+    document.querySelector("#cerrar").style.display="block";
+  }
+}
 
+
+
+const btClose=document.querySelector("#cerrar");
+btClose.addEventListener('click', async(e)=>{
+  e.preventDefault();
+  try{
+    await signOut(auth)
+    checarEstado()
+  }catch(error){
+    console.log(error)
+  }
+});
 
 
 const btnIniciar=document.querySelector("#BtnI");
@@ -76,16 +103,7 @@ try {
         const Bbody=document.querySelector("#Bbody");
         if(user){
             container.innerHTML=`<h1>${user.email}</h1>`
-            Bbody.innerHTML=`
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item">
-                  <a class="nav-link active" id="bp" aria-current="page" href="./index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="cerrar" href="#" data-bs-toggle="modal" data-bs-target="#">Sign out</a>
-                </li>
-              </ul>
-            `
+            
             document.querySelector("#iniciar").style.display="none";
             document.querySelector("#crear").style.display="none";
             const uid=user.uid;
