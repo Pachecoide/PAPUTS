@@ -58,6 +58,34 @@
     <div class="card-body" >
       <h5 class="card-title" id="hu">Welcome</h5>
       <p class="card-text" id="container"></p>
+
+      <!--Start table crud-->
+      <table class="table" onload="onGetAlumnos()">
+        <thead class="table table-dark table-hover">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Description</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody id="lista">
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Description</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+          </tr>
+        </tbody>
+      </table>
+      <!--End table crud-->
+
     </div>
     <div class="card-footer text-muted">
       Developed By @tiageorgina21 and @benitessantiagopablo
@@ -135,5 +163,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="kode.js" type="module"></script>
+    <script src="crud.js" type="module"></script>
 </body>
 </html>

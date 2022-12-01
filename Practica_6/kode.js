@@ -7,6 +7,9 @@ import { getAuth,
      signOut 
     } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
+
+   
+
 let user=null;
 const auth = getAuth(app);
 
@@ -15,11 +18,12 @@ onAuthStateChanged(auth,(user)=>{
   const container=document.querySelector("#container");
   checarEstado(user);
   if(user){
-    container.innerHTML=`<h2>Welcome  ${user.displayName}</h2>
-    <h3> ${user.email}</h3>`
+    container.innerHTML=`<h2>${user.displayName}</h2>
+    <p> ${user.email}</p><br>
+    `
     const uid=user.uid;
   }else{
-    container.innerHTML=`<h1>Invalid User</h1>`
+    container.innerHTML=`<h1>Pleace login</h1>`
   }
 
 })
