@@ -59,32 +59,7 @@
       <h5 class="card-title" id="hu">Welcome</h5>
       <p class="card-text" id="container"></p>
 
-      <!--Start table crud-->
-      <table class="table" onload="onGetAlumnos()">
-        <thead class="table table-dark table-hover">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Description</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-          </tr>
-        </thead>
-        <tbody id="lista">
-        <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Stock</th>
-        <th scope="col">Description</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
-          </tr>
-        </tbody>
-      </table>
-      <!--End table crud-->
+      
 
     </div>
     <div class="card-footer text-muted">
@@ -159,6 +134,86 @@
   </div>
 
 <!-- END MODAL CA -->
+
+<!--edit modal-->
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-pencil-square"></i> Editar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="ename">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Price:</label>
+            <input type="text" class="form-control" id="eprice">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Stock:</label>
+            <input type="text" class="form-control" id="estock">
+          </div>
+          
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Description:</label>
+            <input type="text" class="form-control" id="edescription">
+            <input type="hidden" name="id">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-trash m-2"></i>Cancel</button>
+        <button type="button" class="btn btn-success" id="btnSave"><i class="bi bi-save m-2"></i>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--add modal-->
+
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-arrow-right-square-fill m-2"></i>Agregar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Price:</label>
+            <input type="text" class="form-control" id="price">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Stock:</label>
+            <input type="text" class="form-control" id="stock">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Description:</label>
+            <input type="text" class="form-control" id="description">
+            <input type="hidden" name="id">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-trash m-2"></i>Cancel</button>
+        <button type="button" class="btn btn-success" id="btnAdd"> <i class="bi bi-save m-2" ></i>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -20,6 +20,25 @@ onAuthStateChanged(auth,(user)=>{
   if(user){
     container.innerHTML=`<h2>${user.displayName}</h2>
     <p> ${user.email}</p><br>
+    <!--Start table crud-->
+      
+    <td><button id="btnadd" class="btn btn-success btnAdd" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-plus-lg" m-4></i>Add register</button></td>
+      <table class="table" onload="onGetAlumnos()">
+        <thead class="table table-dark table-hover">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Description</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody id="lista">
+        </tbody>
+      </table>
+      <!--End table crud-->
     `
     const uid=user.uid;
   }else{

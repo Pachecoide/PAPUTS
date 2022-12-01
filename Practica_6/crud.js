@@ -11,70 +11,69 @@ import {
  } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 
 const db=getFirestore();
-const coleccion=collection(db,"merca");
+const coleccion=collection(db,"productos");
 
 let editStatus = false;
 let id = "";
 
-const onGetAlumnos = (callback) => onSnapshot(coleccion, callback);
+const onGetProductos = (callback) => onSnapshot(coleccion, callback);
 
 
 window.addEventListener("DOMContentLoaded", async (e) => {
     
-    onGetAlumnos((querySnapshot)=>{
-        const divAlumnos=document.querySelector("#lista");
-        divAlumnos.innerHTML = "";
+    onGetProductos((querySnapshot)=>{
+        const divProductos=document.querySelector("#lista");
+        divProductos.innerHTML = "";
         querySnapshot.forEach((doc) => {
-            const alumno = doc.data();
+            const producto = doc.data();
             divAlumnos.innerHTML += `
                 <tr>
-                    <td>${alumno.nombre}</td>
-                    <td>${alumno.precio}</td>
-                    <td>${alumno.stock}</td>
-                    <td>${alumno.descripción}</td>
-                    <td><button class="btn btn-danger btnEliminarAlumno" data-id="${doc.id}"><i class="bi bi-trash"></i></button></td>
-                    <td><button class="btn btn-primary btnEditarAlumno" data-bs-toggle="modal" data-bs-target="#editModal"   data-id="${doc.id}"><i class="bi bi-pencil"></i></button></td>
+                    <td>n${producto.name}</td>
+                    <td>p${producto.precio}</td>
+                    <td>s${producto.stock}</td>
+                    <td>d${producto.descripcion}</td>
+                    <td><button class="btn btn-danger btnDelete"  data-id="${doc.id}"><i class="bi bi-trash"></i></button></td>
+                    <td><button class="btn btn-primary btnEdit" data-bs-toggle="modal" data-bs-target="#editModal"   data-id="${doc.id}"><i class="bi bi-pencil"></i></button></td>
                 </tr>`;
         });
  
 
-        const btnsDelete = document.querySelectorAll(".btnEliminarAlumno");
+        const btnDelete = document.querySelectorAll(".btnDelete");
         //console.log(btnsDelete);
-        btnsDelete.forEach((btn,idx) =>
+        btnDelete.forEach((btn,idx) =>
             btn.addEventListener("click", () => {
                 id=btn.dataset.id;
                 console.log(btn.dataset.id);
                 Swal.fire({
-                    title: 'Estás seguro de eliminar es Alumno?',
+                    title: 'Delete this register?',
                     showDenyButton: true,
-                    confirmButtonText: 'Si',
+                    confirmButtonText: 'Yes',
                     denyButtonText: `No`,
                 }).then(async(result) => {
                     try {
                         if (result.isConfirmed) {
-                            await deleteDoc(doc(db, "alumnos", id));
-                            Swal.fire("REGISTRO ELIMINADO!!!");
+                            await deleteDoc(doc(db, "productos", id));
+                            Swal.fire("Register Delete");
                         }                         
                     } catch (error) {
-                        Swal.fire("ERROR AL ELIMINAR REGISTRO");
+                        Swal.fire("ERROR DELETE FILED");
                     }
                 })       
             })
         );
 
-        const btnsEdit = document.querySelectorAll(".btnEditarAlumno");
-        btnsEdit.forEach((btn) => {
+        const btnEdit = document.querySelectorAll(".btnEdit");
+        btnEdit.forEach((btn) => {
             btn.addEventListener("click", async (e) => {
                 try {
                     id=btn.dataset.id;
                     console.log(id);
-                    const data= await getDoc(doc(db, "alumnos", id));
+                    const data= await getDoc(doc(db, "productos", id));
                     const alumno = data.data();
-                    document.querySelector("#enocontrol").value=alumno.nocontrol;
-                    document.querySelector("#enombre").value=alumno.nombre;
-                    document.querySelector("#eapaterno").value=alumno.apaterno;
-                    document.querySelector("#eamaterno").value=alumno.amaterno;
-                    document.querySelector("#ecarrera").value=alumno.carrera;
+                    document.querySelector("#ename").value=producto.name;
+                    document.querySelector("#eprecio").value=producto.precio;
+                    document.querySelector("#estock").value=producto.stock;
+                    document.querySelector("#edescripcion").value=producto.descripcion;
                     editStatus = true;
                     id = data.id;
                 } catch (error) {
@@ -87,23 +86,22 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     
 });
 
-const btnAgregarAlumno=document.querySelector("#btnAgregarAlumno");
-btnAgregarAlumno.addEventListener("click",()=>{
-    const nocontrol=document.querySelector("#nocontrol").value;
-    const nombre=document.querySelector("#nombre").value;
-    const apaterno=document.querySelector("#apaterno").value;
-    const amaterno=document.querySelector("#amaterno").value;
-    const carrera=document.querySelector("#carrera").value;
+const btnAdd=document.querySelector("#btnAdd");
+btnAdd.addEventListener("click",()=>{
+    const name=document.querySelector("#name").value;
+    const precio=document.querySelector("#precio").value;
+    const stock=document.querySelector("#stock").value;
+    const descripcion=document.querySelector("#descripcion").value;
 
-    if(nocontrol=="" || nombre=="" || apaterno=="" || amaterno=="" || carrera==""){
+    if(name=="" || precio=="" || stock=="" || descripcion==""){
         Swal.fire("falta llenar Campos");
         return;
     }
 
-    const alumno={ nocontrol, nombre, apaterno,amaterno,carrera};
+    const producto={ name, precio, stock, descripcion};
 
     if (!editStatus) {
-        addDoc(coleccion, alumno);        
+        addDoc(coleccion, producto);        
         bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
     } 
 
@@ -112,27 +110,26 @@ btnAgregarAlumno.addEventListener("click",()=>{
         title: 'EXITO',
         text: 'Se guardo correctamente!'
     })
-    document.querySelector("#formAddAlumno").reset();
+    document.querySelector("#addModal").reset();
 });
 
 
-const btnGuardarAlumno=document.querySelector("#btnGuardarAlumno");
-btnGuardarAlumno.addEventListener("click",()=>{
-    const nocontrol=document.querySelector("#enocontrol").value;
-    const nombre=document.querySelector("#enombre").value;
-    const apaterno=document.querySelector("#eapaterno").value;
-    const amaterno=document.querySelector("#eamaterno").value;
-    const carrera=document.querySelector("#ecarrera").value;
+const btnSave=document.querySelector("#btnSave");
+btnSave.addEventListener("click",()=>{
+    const name=document.querySelector("#ename").value;
+    const precio=document.querySelector("#eprecio").value;
+    const stock=document.querySelector("#estock").value;
+    const descripcion=document.querySelector("#edescripcion").value;
 
-    if(nocontrol=="" || nombre=="" || apaterno=="" || amaterno=="" || carrera==""){
-        Swal.fire("falta llenar Campos");
+    if(name=="" || precio=="" || stock=="" || descripcion==""){
+        Swal.fire("Fil all camps");
         return;
     }
 
-    const alumno={ nocontrol, nombre, apaterno,amaterno,carrera};
+    const alumno={ name, precio, stock, descripcion};
 
     if (editStatus) {
-        updateDoc(doc(db, "alumnos", id), alumno);
+        updateDoc(doc(db, "productos", id), producto);
         editStatus = false;
         id = "";
         bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
@@ -140,10 +137,10 @@ btnGuardarAlumno.addEventListener("click",()=>{
 
     Swal.fire({
         icon: 'success',
-        title: 'EXITO',
-        text: 'Se guardo correctamente!'
+        title: 'Success',
+        text: 'You´r register is save'
     })
-    document.querySelector("#formEditAlumno").reset();
+    document.querySelector("#editModal").reset();
 });
 
 
