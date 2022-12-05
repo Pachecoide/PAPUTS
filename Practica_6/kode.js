@@ -22,7 +22,6 @@ onAuthStateChanged(auth,(user)=>{
     <p> ${user.email}</p><br>
     <!--Start table crud-->
       
-    <td><button id="btnadd" class="btn btn-success btnAdd" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-plus-lg" m-4></i>Add register</button></td>
       <table class="table" onload="onGetAlumnos()">
         <thead class="table table-dark table-hover">
           <tr>

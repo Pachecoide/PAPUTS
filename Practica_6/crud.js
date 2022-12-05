@@ -26,7 +26,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         divProductos.innerHTML = "";
         querySnapshot.forEach((doc) => {
             const producto = doc.data();
-            divAlumnos.innerHTML += `
+            divProductos.innerHTML += `
+            <td><button class="btn btn-danger" id="btnAdd" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-check"></i>Add Register</button></td>
+                    
                 <tr>
                     <td>n${producto.name}</td>
                     <td>p${producto.precio}</td>
@@ -34,7 +36,87 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                     <td>d${producto.descripcion}</td>
                     <td><button class="btn btn-danger btnDelete"  data-id="${doc.id}"><i class="bi bi-trash"></i></button></td>
                     <td><button class="btn btn-primary btnEdit" data-bs-toggle="modal" data-bs-target="#editModal"   data-id="${doc.id}"><i class="bi bi-pencil"></i></button></td>
-                </tr>`;
+                </tr>
+                
+                <!--edit modal-->
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-pencil-square"></i> Editar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="ename">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Price:</label>
+            <input type="text" class="form-control" id="eprice">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Stock:</label>
+            <input type="text" class="form-control" id="estock">
+          </div>
+          
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Description:</label>
+            <input type="text" class="form-control" id="edescription">
+            <input type="hidden" name="id">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-trash m-2"></i>Cancel</button>
+        <button type="button" class="btn btn-success" id="btnSave"><i class="bi bi-save m-2"></i>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--add modal-->
+
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-arrow-right-square-fill m-2"></i>Agregar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Price:</label>
+            <input type="text" class="form-control" id="price">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Stock:</label>
+            <input type="text" class="form-control" id="stock">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Description:</label>
+            <input type="text" class="form-control" id="description">
+            <input type="hidden" name="id">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-trash m-2"></i>Cancel</button>
+        <button type="button" class="btn btn-success" id="btnAdd"> <i class="bi bi-save m-2" ></i>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+                `;
         });
  
 
@@ -142,7 +224,6 @@ btnSave.addEventListener("click",()=>{
     })
     document.querySelector("#editModal").reset();
 });
-
 
 
 
