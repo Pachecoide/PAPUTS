@@ -5,9 +5,11 @@ import { getAuth,
    GoogleAuthProvider,
     signInWithEmailAndPassword,
     onAuthStateChanged,
+    signInWithPhoneNumber,
      signInWithPopup,
      signInAnonymously,
-     signOut
+     signOut,
+     RecaptchaVerifier
     } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
 
@@ -50,6 +52,46 @@ onAuthStateChanged(auth,(user)=>{
 
 })
 
+const btnPhone=document.querySelector("#BtnPhone");
+btnPhone.addEventListener('click', async(e)=>{
+  e.preventDefault();
+  try{
+    const{value:tel}=await Swal.fire({
+      title: 'Place your phone number',
+      input: 'tel',
+      inputLabel: 'Phone',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Send verify code',
+      showCancelButton: true,
+    })
+    window.recaptchaVerifier=new RecaptchaVerifier('recaptcha',
+       {'size':'invisible'}, auth);
+    const appVerify=window.recaptchaVerifier;
+    const confirmRes=await signInWithPhoneNumber(auth, tel, appVerify)
+    console.log(confirmRes);
+
+    const {value:code}=await Swal.fire({
+      title: 'Place your verify code',
+      input: 'text',
+      inputLabel: 'Code',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Verify',
+      showCancelButton: true,
+    })
+
+    const res=await window.confirmRes.confirm(code)
+    user=res.user;
+    checarEstado(user)
+
+  }catch(error){
+    Swal.fire('Don´t is possible login whit your number phone')
+  }
+  });
+
 
 const btnAn=document.querySelector("#BtnAn");
 btnAn.addEventListener('click', async(e)=>{
@@ -58,6 +100,7 @@ e.preventDefault();
         const result=await signInAnonymously(auth);
         user=result.user;
         const modalInstance = bootstrap.Modal.getInstance(btnAn.closest('.modal'));
+        modalInstance.hide();
     } catch (error) {
         console.log(error)
         Swal.fire({
@@ -78,8 +121,6 @@ e.preventDefault();
     try {
         const credencial=await signInWithPopup(auth, provider)
         user=credencial.user;
-        const modalInstance = bootstrap.Modal.getInstance(btnGoogle.closest('.modal'));
-        modalInstance.hide();
         checarEstado(user);
         console.log(credencial)
         Swal.fire({
@@ -104,11 +145,15 @@ const checarEstado=(user=null)=>{
   if(user==null){
     document.querySelector("#iniciar").style.display="block";
     document.querySelector("#crear").style.display="block";
+    document.querySelector("#BtnCAG").style.display="block";
+    document.querySelector("#BtnPhone").style.display="block";
     document.querySelector("#cerrar").style.display="none";
   }
   else{
     document.querySelector("#iniciar").style.display="none";
     document.querySelector("#crear").style.display="none";
+    document.querySelector("#BtnCAG").style.display="none";
+    document.querySelector("#BtnPhone").style.display="none";
     document.querySelector("#cerrar").style.display="block";
   }
 }
