@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="shortcut icon" href="https://static.thenounproject.com/png/18493-200.png" />    
 <link rel="stylesheet" href="style.css">
+<script src="qrcode.min.js"></script>
     <title>FireBase</title>
 </head>
 <body>
@@ -93,6 +94,7 @@
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg m-2"></i>Cancel</button>
           <button type="button" class="btn btn-outline-success" id="BtnI"><i class="bi bi-power m-2"></i>Login</button>
                 <button type="button" class="btn btn-outline-info" id="BtnCAG"><i class="bi bi-google m-2" ></i></i>Login with google</button>
+                <button type="button" class="btn btn-outline-dark" id="BtnAn"><i class="bi bi-incognito"></i>Anonimous</button>
         </div>
       </div>
     </div>
@@ -143,7 +145,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="formEdit">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Name:</label>
             <input type="text" class="form-control" id="ename">
@@ -208,6 +210,25 @@
   </div>
 </div>
 
+
+<!--QR modal-->
+<div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-qr-code m-2"></i>QR CODE</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >
+        <div id="contQR"></div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"></i>Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>

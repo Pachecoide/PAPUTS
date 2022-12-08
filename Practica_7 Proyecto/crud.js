@@ -33,9 +33,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                     <td>${producto.price}</td>
                     <td>${producto.stock}</td>
                     <td>${producto.description}</td>
-                    <td><button class="btn btn-danger btnDelete"  data-id="${doc.id}"><i class="bi bi-trash"></i></button></td>
-                    <td><button class="btn btn-primary btnEdit" data-bs-toggle="modal" data-bs-target="#editModal"   data-id="${doc.id}"><i class="bi bi-pencil"></i></button></td>
-                    <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#qrModal"   data-id="${doc.id}"><i class="bi bi-qr-code"></i></button></td>
+                    <td><button class="btn btn-outline-danger btnDelete"  data-id="${doc.id}"><i class="bi bi-trash"></i></button></td>
+                    <td><button class="btn btn-outline-primary btnEdit" data-bs-toggle="modal" data-bs-target="#editModal"   data-id="${doc.id}"><i class="bi bi-pencil"></i></button></td>
+                    <td><button class="btn btn-outline-info btnQR" data-bs-toggle="modal" data-bs-target="#qrModal"  data-id="${doc.id}"><i class="bi bi-qr-code"></i></button></td>
                 </tr>
                 `;
         });
@@ -143,9 +143,24 @@ btnSave.addEventListener("click",()=>{
         title: 'Success',
         text: 'You´r register is save'
     })
-    document.querySelector("#editModal").reset();
+    document.querySelector("#formEdit").reset();
 });
 
 
-
-
+const btnQR=document.querySelectorAll(".btnQR");
+btnQR.forEach((btn)=>{
+    btn.addEventListener("click", async (e)=>{
+      try{
+      id=btn.dataset.id;
+      console.log(id);
+      const data=await getDoc(doc(db, "productos", id));
+      const producto=data.data();
+      const contQR=document.getElementById('contQR');
+      contQR.innerHTML=""
+      const QR=new QRCode(contQR);
+      QR.makeCode(id);
+      } catch (error){  
+        console.log(error);
+      }
+    });
+  });

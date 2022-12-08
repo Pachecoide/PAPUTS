@@ -26,3 +26,10 @@ body{
 #btnAdd{
     margin: 10px;
 }
+#contQR{
+    position: relative;
+    padding: 5px;
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+}

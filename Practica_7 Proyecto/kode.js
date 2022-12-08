@@ -2,9 +2,12 @@ import {app} from './firebase.js'
 
 import { getAuth,
    createUserWithEmailAndPassword,
-   GoogleAuthProvider, signInWithEmailAndPassword,
-    onAuthStateChanged, signInWithPopup,
-     signOut 
+   GoogleAuthProvider,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+     signInWithPopup,
+     signInAnonymously,
+     signOut
     } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
 
@@ -18,10 +21,11 @@ onAuthStateChanged(auth,(user)=>{
   const container=document.querySelector("#container");
   checarEstado(user);
   if(user){
-    container.innerHTML=`<h2>${user.displayName}</h2>
+    container.innerHTML=`
+    <h2>${user.displayName}</h2>
     <p> ${user.email}</p><br>
     
-    <button class="btn btn-success" id="btnAdd" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-check"></i>Add Register</button>
+    <button class="btn btn-outline-success" id="btnAdd" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-check"></i>Add Register</button>
       <table class="table" onload="onGetAlumnos()">
         <thead class="table table-dark table-hover">
           <tr>
@@ -29,8 +33,8 @@ onAuthStateChanged(auth,(user)=>{
             <th scope="col">Price</th>
             <th scope="col">Stock</th>
             <th scope="col">Description</th>
-            <th scope="col">Edit</th>
             <th scope="col">Delete</th>
+            <th scope="col">Edit</th>
             <th scope="col">QR CODE</th>
           </tr>
         </thead>
@@ -45,6 +49,27 @@ onAuthStateChanged(auth,(user)=>{
   }
 
 })
+
+
+const btnAn=document.querySelector("#BtnAn");
+btnAn.addEventListener('click', async(e)=>{
+e.preventDefault();
+    try {
+        const result=await signInAnonymously(auth);
+        user=result.user;
+        const modalInstance = bootstrap.Modal.getInstance(btnAn.closest('.modal'));
+    } catch (error) {
+        console.log(error)
+        Swal.fire({
+            icon: 'error',
+           title: 'Ops...',
+            text: 'Don´t is possible login in this moment',
+              })
+    }
+
+});
+
+
 
 const btnGoogle=document.querySelector("#BtnCAG");
 btnGoogle.addEventListener('click', async(e)=>{
